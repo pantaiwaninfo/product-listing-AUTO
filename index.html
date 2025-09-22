@@ -1893,6 +1893,8 @@ function generateProductPreviewHTML(data) {
                     display: flex;
                     gap: 30px;
                     margin-bottom: 30px;
+                    padding-bottom: 30px;
+                    border-bottom: 1px solid #eee;
                 }
                 
                 .product-images {
@@ -1927,41 +1929,96 @@ function generateProductPreviewHTML(data) {
                 }
                 
                 .product-title {
-                    font-size: 24px;
+                    font-size: 28px;
                     color: #333;
-                    margin-bottom: 8px;
-                    font-weight: normal;
+                    margin-bottom: 15px;
+                    font-weight: 600;
+                    line-height: 1.3;
                 }
                 
                 .product-model {
-                    color: #666;
-                    margin-bottom: 5px;
-                    font-size: 14px;
+                    color: #C5705D;
+                    margin-bottom: 8px;
+                    font-size: 16px;
+                    font-weight: 600;
                 }
                 
                 .product-alias {
                     color: #666;
-                    margin-bottom: 15px;
+                    margin-bottom: 8px;
                     font-size: 14px;
+                    line-height: 1.4;
+                }
+                
+                .product-oe {
+                    color: #666;
+                    margin-bottom: 20px;
+                    font-size: 14px;
+                }
+                
+                .action-buttons {
+                    display: flex;
+                    gap: 15px;
+                    margin-bottom: 20px;
+                }
+                
+                .action-button {
+                    padding: 12px 20px;
+                    border: none;
+                    border-radius: 4px;
+                    font-size: 14px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                }
+                
+                .inquire-btn {
+                    background: #C5705D;
+                    color: white;
+                }
+                
+                .add-list-btn {
+                    background: #8B7D82;
+                    color: white;
                 }
                 
                 .description {
                     font-size: 14px;
                     line-height: 1.6;
                     color: #555;
+                    margin-bottom: 30px;
+                    text-align: justify;
+                }
+                
+                .specs-section {
+                    margin-top: 30px;
+                }
+                
+                .specs-group {
                     margin-bottom: 20px;
                 }
                 
-                .info-item {
-                    margin-bottom: 15px;
-                    font-size: 14px;
+                .specs-title {
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: #333;
+                    margin-bottom: 8px;
+                    text-transform: uppercase;
                 }
                 
-                .info-label {
-                    font-weight: bold;
-                    color: #333;
-                    display: inline-block;
-                    width: 120px;
+                .specs-item {
+                    color: #666;
+                    font-size: 14px;
+                    margin-left: 15px;
+                    position: relative;
+                }
+                
+                .specs-item::before {
+                    content: "●";
+                    position: absolute;
+                    left: -15px;
+                    color: #C5705D;
                 }
                 
                 .close-button {
@@ -2021,80 +2078,99 @@ function generateProductPreviewHTML(data) {
                         <h1 class="product-title">${data.productName || 'Product Name To Be Set'}</h1>
                         
                         <div class="product-model">
-                            Model: ${data.productModel || 'Product Model To Be Set'}
+                            ${data.productModel || 'Product Model To Be Set'}
                         </div>
                         
                         ${data.alias ? `
                             <div class="product-alias">
-                                Alias: ${data.alias}
+                                ${data.alias}
                             </div>
                         ` : ''}
-                        
-                        ${data.desc ? `
-                            <div class="description">
-                                ${data.desc.replace(/\n/g, '<br>')}
-                            </div>
-                        ` : ''}
-                        
-                        <div class="info-item">
-                            <span class="info-label">Maker:</span>
-                            ${data.maker || 'To Be Filled'}
-                        </div>
-                        
-                        <div class="info-item">
-                            <span class="info-label">Model:</span>
-                            ${data.model ? data.model.replace(/\\n/g, '<br>') : 'To Be Filled'}
-                        </div>
-                        
-                        <div class="info-item">
-                            <span class="info-label">Year:</span>
-                            ${data.year ? data.year.replace(/\\n/g, '<br>') : 'To Be Filled'}
-                        </div>
                         
                         ${data.oeNumber ? `
-                            <div class="info-item">
-                                <span class="info-label">OE Number:</span>
-                                ${data.oeNumber.replace(/\\n/g, '<br>')}
+                            <div class="product-oe">
+                                OEM#${data.oeNumber.split('\\n')[0] || data.oeNumber.split('\n')[0] || data.oeNumber}
                             </div>
                         ` : ''}
                         
-                        ${data.type ? `
-                            <div class="info-item">
-                                <span class="info-label">Type:</span>
-                                ${data.type}
-                            </div>
-                        ` : ''}
-                        
-                        ${data.position ? `
-                            <div class="info-item">
-                                <span class="info-label">Position:</span>
-                                ${data.position}
-                            </div>
-                        ` : ''}
-                        
-                        ${data.application ? `
-                            <div class="info-item">
-                                <span class="info-label">Application:</span>
-                                ${data.application.replace(/\n/g, '<br>')}
-                            </div>
-                        ` : ''}
-                        
-                        <div class="info-item">
-                            <span class="info-label">Country of Origin:</span>
-                            ${data.country || 'Made in Taiwan'}
+                        <div class="action-buttons">
+                            <button class="action-button inquire-btn">INQUIRE NOW</button>
+                            <button class="action-button add-list-btn">ADD TO LIST</button>
                         </div>
-                        
-                        <div class="info-item">
-                            <span class="info-label">Warranty:</span>
-                            ${data.warranty || '12 Months'}
+                    </div>
+                </div>
+                
+                ${data.desc ? `
+                    <div class="description">
+                        ${data.desc.replace(/\n/g, '<br>')}
+                    </div>
+                ` : ''}
+                
+                <div class="specs-section">
+                    ${data.maker ? `
+                        <div class="specs-group">
+                            <div class="specs-title">MAKER</div>
+                            <div class="specs-item">${data.maker}</div>
                         </div>
-                        
-                        ${data.tags ? `
-                            <div class="info-item">
-                                <span class="info-label">Tags:</span>
-                                ${data.tags}
-                            </div>
-                        ` : ''}
+                    ` : ''}
+                    
+                    ${data.model ? `
+                        <div class="specs-group">
+                            <div class="specs-title">MODEL</div>
+                            <div class="specs-item">${data.model.replace(/\\n/g, '<br>')}</div>
+                        </div>
+                    ` : ''}
+                    
+                    ${data.year ? `
+                        <div class="specs-group">
+                            <div class="specs-title">YEAR</div>
+                            <div class="specs-item">${data.year.replace(/\\n/g, '<br>')}</div>
+                        </div>
+                    ` : ''}
+                    
+                    ${data.application ? `
+                        <div class="specs-group">
+                            <div class="specs-title">Applications</div>
+                            <div class="specs-item">${data.application.replace(/\n/g, '<br>')}</div>
+                        </div>
+                    ` : ''}
+                    
+                    ${data.position ? `
+                        <div class="specs-group">
+                            <div class="specs-title">Position</div>
+                            <div class="specs-item">${data.position}</div>
+                        </div>
+                    ` : ''}
+                    
+                    ${data.pins ? `
+                        <div class="specs-group">
+                            <div class="specs-title">PINs</div>
+                            <div class="specs-item">${data.pins}</div>
+                        </div>
+                    ` : ''}
+                    
+                    ${data.manualElectric ? `
+                        <div class="specs-group">
+                            <div class="specs-title">Manual/Electric</div>
+                            <div class="specs-item">${data.manualElectric}</div>
+                        </div>
+                    ` : ''}
+                    
+                    <div class="specs-group">
+                        <div class="specs-title">Country of Origin</div>
+                        <div class="specs-item">${data.country || 'Made in Taiwan'}</div>
+                    </div>
+                    
+                    ${data.oeNumber ? `
+                        <div class="specs-group">
+                            <div class="specs-title">OE#</div>
+                            <div class="specs-item">${data.oeNumber.split('\\n')[0] || data.oeNumber.split('\n')[0] || data.oeNumber}</div>
+                        </div>
+                    ` : ''}
+                    
+                    <div class="specs-group">
+                        <div class="specs-title">Warranty</div>
+                        <div class="specs-item">${data.warranty || '12 Months'}</div>
                     </div>
                 </div>
             </div>
