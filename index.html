@@ -2246,8 +2246,23 @@ function collectFormData() {
 function saveData() {
     const data = collectFormData();
     
-    if (!data.productModel || !data.categoryId || !data.productName) {
-        alert('請填入所有必填欄位');
+    // 檢查必填欄位並給出明確提示
+    const missingFields = [];
+    
+    if (!data.productModel) {
+        missingFields.push('產品型號(D欄)');
+    }
+    
+    if (!data.categoryId) {
+        missingFields.push('分類系統ID(B欄)');
+    }
+    
+    if (!data.productName) {
+        missingFields.push('產品名稱(C欄)');
+    }
+    
+    if (missingFields.length > 0) {
+        alert(`請填入以下必填欄位：\n\n${missingFields.join('\n')}`);
         return;
     }
     
