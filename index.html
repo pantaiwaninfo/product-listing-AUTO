@@ -2251,6 +2251,15 @@ function collectFormData() {
 function saveData() {
     const data = collectFormData();
     
+    // 特別處理修改模式下的分類ID問題
+    if (isUpdateMode && !data.categoryId) {
+        const customCategoryInput = document.getElementById('customCategoryId');
+        if (customCategoryInput && customCategoryInput.value.trim()) {
+            data.categoryId = customCategoryInput.value.trim();
+            console.log('修正分類ID為:', data.categoryId);
+        }
+    }
+    
     // 添加調試信息
     console.log('收集到的資料:', data);
     console.log('分類系統ID:', data.categoryId);
