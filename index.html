@@ -2170,7 +2170,19 @@ function generateProductPreviewHTML(data) {
                     ${data.oeNumber ? `
                         <div class="specs-group">
                             <div class="specs-title">OE#</div>
-                            <div class="specs-item">${data.oeNumber.split('\\n')[0] || data.oeNumber.split('\n')[0] || data.oeNumber}</div>
+                            ${(() => {
+                                // Handle both \\n and \n line breaks
+                                let oeLines = data.oeNumber.includes('\\n') ? 
+                                    data.oeNumber.split('\\n') : 
+                                    data.oeNumber.split('\n');
+                                
+                                // Filter out empty lines and create spec items
+                                return oeLines
+                                    .map(line => line.trim())
+                                    .filter(line => line)
+                                    .map(line => `<div class="specs-item">${line}</div>`)
+                                    .join('');
+                            })()}
                         </div>
                     ` : ''}
                     
