@@ -2092,9 +2092,9 @@ function generateProductPreviewHTML(data) {
                             </div>
                         ` : ''}
                         
-                        ${data.oeNumber ? `
-                            <div class="product-oe">
-                                OEM#${data.oeNumber.split('\\n')[0] || data.oeNumber.split('\n')[0] || data.oeNumber}
+                        ${data.desc ? `
+                            <div class="description">
+                                ${data.desc.replace(/\n/g, '<br>')}
                             </div>
                         ` : ''}
                         
@@ -2104,12 +2104,6 @@ function generateProductPreviewHTML(data) {
                         </div>
                     </div>
                 </div>
-                
-                ${data.desc ? `
-                    <div class="description">
-                        ${data.desc.replace(/\n/g, '<br>')}
-                    </div>
-                ` : ''}
                 
                 <div class="specs-section">
                     ${data.maker ? `
