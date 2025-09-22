@@ -864,7 +864,7 @@ background: linear-gradient(135deg, #6B5B73 0%, #534652 100%);
 <div class="form-row">
 <div class="form-group">
 <label for="oeNumber">OE#(AB欄)</label>
-<input type="text" id="oeNumber" placeholder="請輸入OE編號" style="height: 50px;">
+<textarea id="oeNumber" rows="2" placeholder="請輸入OE編號" style="height: 60px;"></textarea>
 </div>
 <div class="form-group">
 <label for="pins">PINs(S欄) <span class="help-text-inline">請填數字或是N/A</span></label>
@@ -1515,7 +1515,7 @@ function loadExistingData(productData) {
     document.getElementById('maker').value = productData.maker || '';
     document.getElementById('model').value = (productData.model || '').replace(/\\n/g, '\n');
     document.getElementById('year').value = (productData.year || '').replace(/\\n/g, '\n');
-    document.getElementById('oeNumber').value = productData.oeNumber || '';
+    document.getElementById('oeNumber').value = (productData.oeNumber || '').replace(/\\n/g, '\n');
     document.getElementById('pins').value = productData.pins || '';
     document.getElementById('supplierInfo').value = productData.supplierInfo || '';
     
@@ -2001,10 +2001,10 @@ function generateProductPreviewHTML(data) {
         </head>
         <body>
             <div class="preview-header">
-                產品頁面預覽 - 模擬正式網站呈現效果
+                Product Page Preview - Simulate Official Website Display
             </div>
             
-            <button class="close-button" onclick="window.close()">關閉</button>
+            <button class="close-button" onclick="window.close()">Close</button>
             
             <div class="container">
                 <div class="product-header">
@@ -2012,21 +2012,21 @@ function generateProductPreviewHTML(data) {
                         <div class="main-image">
                             ${data.image ? 
                                 `<img src="${data.image}" alt="${data.productName}">` : 
-                                `<div class="image-placeholder">產品主圖</div>`
+                                `<div class="image-placeholder">Product Main Image</div>`
                             }
                         </div>
                     </div>
                     
                     <div class="product-info">
-                        <h1 class="product-title">${data.productName || '產品名稱待設定'}</h1>
+                        <h1 class="product-title">${data.productName || 'Product Name To Be Set'}</h1>
                         
                         <div class="product-model">
-                            型號: ${data.productModel || '產品型號待設定'}
+                            Model: ${data.productModel || 'Product Model To Be Set'}
                         </div>
                         
                         ${data.alias ? `
                             <div class="product-alias">
-                                別稱: ${data.alias}
+                                Alias: ${data.alias}
                             </div>
                         ` : ''}
                         
@@ -2037,61 +2037,61 @@ function generateProductPreviewHTML(data) {
                         ` : ''}
                         
                         <div class="info-item">
-                            <span class="info-label">製造商:</span>
-                            ${data.maker || '待填入'}
+                            <span class="info-label">Maker:</span>
+                            ${data.maker || 'To Be Filled'}
                         </div>
                         
                         <div class="info-item">
-                            <span class="info-label">車型:</span>
-                            ${data.model ? data.model.replace(/\\n/g, '<br>') : '待填入'}
+                            <span class="info-label">Model:</span>
+                            ${data.model ? data.model.replace(/\\n/g, '<br>') : 'To Be Filled'}
                         </div>
                         
                         <div class="info-item">
-                            <span class="info-label">年份:</span>
-                            ${data.year ? data.year.replace(/\\n/g, '<br>') : '待填入'}
+                            <span class="info-label">Year:</span>
+                            ${data.year ? data.year.replace(/\\n/g, '<br>') : 'To Be Filled'}
                         </div>
                         
                         ${data.oeNumber ? `
                             <div class="info-item">
-                                <span class="info-label">OE編號:</span>
-                                ${data.oeNumber}
+                                <span class="info-label">OE Number:</span>
+                                ${data.oeNumber.replace(/\\n/g, '<br>')}
                             </div>
                         ` : ''}
                         
                         ${data.type ? `
                             <div class="info-item">
-                                <span class="info-label">類型:</span>
+                                <span class="info-label">Type:</span>
                                 ${data.type}
                             </div>
                         ` : ''}
                         
                         ${data.position ? `
                             <div class="info-item">
-                                <span class="info-label">位置:</span>
+                                <span class="info-label">Position:</span>
                                 ${data.position}
                             </div>
                         ` : ''}
                         
                         ${data.application ? `
                             <div class="info-item">
-                                <span class="info-label">應用:</span>
+                                <span class="info-label">Application:</span>
                                 ${data.application.replace(/\n/g, '<br>')}
                             </div>
                         ` : ''}
                         
                         <div class="info-item">
-                            <span class="info-label">產地:</span>
+                            <span class="info-label">Country of Origin:</span>
                             ${data.country || 'Made in Taiwan'}
                         </div>
                         
                         <div class="info-item">
-                            <span class="info-label">保固:</span>
+                            <span class="info-label">Warranty:</span>
                             ${data.warranty || '12 Months'}
                         </div>
                         
                         ${data.tags ? `
                             <div class="info-item">
-                                <span class="info-label">標籤:</span>
+                                <span class="info-label">Tags:</span>
                                 ${data.tags}
                             </div>
                         ` : ''}
@@ -2130,7 +2130,7 @@ function collectFormData() {
         maker: document.getElementById('maker').value.trim(),
         model: document.getElementById('model').value.trim().replace(/\n/g, '\\n'),
         year: document.getElementById('year').value.trim().replace(/\n/g, '\\n'),
-        oeNumber: document.getElementById('oeNumber').value.trim(),
+        oeNumber: document.getElementById('oeNumber').value.trim().replace(/\n/g, '\\n'),
         pins: document.getElementById('pins').value.trim(),
         manualElectric: selectedManualElectric,
         supplierInfo: document.getElementById('supplierInfo').value.trim(),
