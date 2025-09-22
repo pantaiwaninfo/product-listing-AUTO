@@ -423,7 +423,7 @@ background: rgba(255, 255, 255, 0.9);
 
 /* 專門針對產品簡述(I欄)的樣式 */
 #aiDesc {
-    min-height: 180px !important;
+    min-height: 240px !important;
 }
 
 .review-badge {
@@ -2137,6 +2137,13 @@ function generateProductPreviewHTML(data) {
                         <div class="specs-group">
                             <div class="specs-title">Applications</div>
                             <div class="specs-item">${data.application.replace(/\n/g, '<br>')}</div>
+                        </div>
+                    ` : ''}
+                    
+                    ${data.type ? `
+                        <div class="specs-group">
+                            <div class="specs-title">Type</div>
+                            <div class="specs-item">${data.type}</div>
                         </div>
                     ` : ''}
                     
