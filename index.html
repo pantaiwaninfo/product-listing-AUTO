@@ -2251,19 +2251,31 @@ function collectFormData() {
 function saveData() {
     const data = collectFormData();
     
+    // 添加調試信息
+    console.log('收集到的資料:', data);
+    console.log('分類系統ID:', data.categoryId);
+    console.log('產品型號:', data.productModel);
+    console.log('產品名稱:', data.productName);
+    
     // 檢查必填欄位並給出明確提示
     const missingFields = [];
     
     if (!data.productModel) {
         missingFields.push('產品型號(D欄)');
+        console.log('缺少產品型號');
     }
     
     if (!data.categoryId) {
         missingFields.push('分類系統ID(B欄)');
+        console.log('缺少分類系統ID');
+        console.log('分類下拉選單值:', document.getElementById('categoryId').value);
+        console.log('分類下拉選單disabled狀態:', document.getElementById('categoryId').disabled);
+        console.log('自訂分類欄位值:', document.getElementById('customCategoryId').value);
     }
     
     if (!data.productName) {
         missingFields.push('產品名稱(C欄)');
+        console.log('缺少產品名稱');
     }
     
     if (missingFields.length > 0) {
