@@ -1574,11 +1574,16 @@ function generateAIContent() {
     const productModel = document.getElementById('productModel').value.trim();
     const productName = document.getElementById('productName').value.trim();
     
-    // 取得分類系統ID（考慮自訂輸入）
+    // 取得分類系統ID（考慮自訂輸入和disabled狀態）
     let categoryId;
     const categorySelect = document.getElementById('categoryId');
-    if (categorySelect.value === 'add_new') {
-        categoryId = document.getElementById('customCategoryId').value.trim();
+    const customCategoryInput = document.getElementById('customCategoryId');
+    
+    if (categorySelect.disabled && customCategoryInput.value.trim()) {
+        // 修改模式下，如果分類被鎖定且自訂欄位有值，使用自訂欄位的值
+        categoryId = customCategoryInput.value.trim();
+    } else if (categorySelect.value === 'add_new') {
+        categoryId = customCategoryInput.value.trim();
     } else {
         categoryId = categorySelect.value.trim();
     }
